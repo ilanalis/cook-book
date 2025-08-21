@@ -1,1 +1,6 @@
+.next
 node_modules
+.env
+/app/generated/prisma
+
+/generated/prisma

@@ -1,7 +1,10 @@
+import { SignInButton } from "@/components/sign-in-button";
+
 export default function Auth() {
   return (
-    <div>
-      auth
+  <div>
+      home
+      <SignInButton/>
     </div>
   );
 }

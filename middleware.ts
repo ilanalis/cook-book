@@ -1,33 +1,22 @@
 import { NextResponse } from "next/server";
-import { NextRequest } from "next/server";
-import {auth} from "./auth";
+import type { NextRequest } from "next/server";
 
-const protectedRoutes = ["/dashboard"]
+export default function middleware(request: NextRequest) {
+  const { pathname } = request.nextUrl;
+  const protectedRoutes = ["/dashboard"];
 
-export default async function middleware(request: NextRequest){
-    const session = await auth();
+  const isProtected = protectedRoutes.some((route) =>
+    pathname.startsWith(route)
+  );
 
-    const {pathname} = request.nextUrl;
+  const token = request.cookies.get("authjs.session-token")?.value;
+  if (isProtected && !token) {
+    return NextResponse.redirect(new URL("/auth", request.url));
+  }
 
-    const isProtected = protectedRoutes.some((route) => 
-        pathname.startsWith(route)
-    )
+  if (pathname === "/auth" && token) {
+    return NextResponse.redirect(new URL("/", request.url));
+  }
 
-    if (
-        pathname.startsWith("/_next") ||
-        pathname.startsWith("/api") ||
-        pathname.startsWith("/static")
-    ) {
-        return NextResponse.next();
-    }
-
-    if(isProtected && !session){
-        return NextResponse.redirect(new URL("/api/auth/signin", request.url))
-    }
-
-    if(session && pathname === "/auth"){
-        return NextResponse.redirect(new URL("/", request.url))
-    }
-    
-    return NextResponse.next();
+  return NextResponse.next();
 }

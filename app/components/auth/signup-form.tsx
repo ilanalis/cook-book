@@ -6,28 +6,25 @@ import React, {
   useEffect,
   useState,
 } from "react";
-import { Button, CircularProgress, Stack, TextField } from "@mui/material";
-import { useRouter } from "next/navigation";
+import {
+  Alert,
+  Button,
+  CircularProgress,
+  Stack,
+  TextField,
+} from "@mui/material";
 import { signIn } from "next-auth/react";
 import { signupWithCredentials } from "@/lib/actions/auth";
+import { SignupFormFields } from "@/lib/definitions";
 
 interface SignUpFormProps {
   isLoading: boolean;
   setIsLoading: (value: boolean) => void;
 }
 
-interface FieldErrors {
-  errors: string[];
-}
-
-interface ValidationErrors {
-  name?: FieldErrors;
-  surname?: FieldErrors;
-  username?: FieldErrors;
-  email?: FieldErrors;
-  password?: FieldErrors;
-  confirmPassword?: FieldErrors;
-}
+type FieldErrorsFromSchema = {
+  [K in keyof SignupFormFields]?: { errors: string[] };
+};
 
 const SignUpForm: React.FC<SignUpFormProps> = ({ isLoading, setIsLoading }) => {
   const [state, action, isPending] = useActionState(
@@ -35,25 +32,14 @@ const SignUpForm: React.FC<SignUpFormProps> = ({ isLoading, setIsLoading }) => {
     undefined
   );
   const [validationError, setValidationError] =
-    useState<ValidationErrors | null>();
-
-  const router = useRouter();
+    useState<FieldErrorsFromSchema | null>(null);
 
   useEffect(() => {
     setIsLoading(isPending);
   }, [isPending, setIsLoading]);
 
   useEffect(() => {
-    setValidationError(null);
-    if (
-      state?.errors &&
-      "properties" in state.errors &&
-      state.errors.properties
-    ) {
-      setValidationError(state.errors.properties);
-    } else {
-      setValidationError(undefined);
-    }
+    setValidationError(state?.validationErrors?.properties ?? null);
   }, [state]);
 
   useEffect(() => {
@@ -145,6 +131,9 @@ const SignUpForm: React.FC<SignUpFormProps> = ({ isLoading, setIsLoading }) => {
         error={!!validationError?.confirmPassword}
         helperText={validationError?.confirmPassword?.errors[0]}
       />
+      {state?.systemErrors && (
+        <Alert severity="error">{state.systemErrors.join(", ")}</Alert>
+      )}
       <Button
         type="submit"
         variant="contained"

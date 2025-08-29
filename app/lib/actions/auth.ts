@@ -1,7 +1,7 @@
 "use server";
 import bcrypt from "bcrypt";
 import { signIn, signOut } from "../../../auth";
-import { signupSchema } from "../definitions";
+import { SignupFormFields, signupSchema } from "../definitions";
 import { prisma } from "../prisma";
 import z from "zod";
 
@@ -17,10 +17,25 @@ export const loginWithGoogle = async () => {
   await signIn("google", { redirectTo: "/" });
 };
 
+type FieldErrors<T> = {
+  [K in keyof T]?: { errors: string[] };
+};
+
+export interface SignupState {
+  validationErrors?: {
+    errors: string[];
+    properties?: FieldErrors<SignupFormFields>;
+  };
+  systemErrors?: string[];
+  success?: boolean;
+  email?: string;
+  password?: string;
+}
+
 export const signupWithCredentials = async (
-  _state: any,
+  _state: SignupState | undefined,
   formData: FormData
-) => {
+): Promise<SignupState> => {
   const validationResult = signupSchema.safeParse({
     name: formData.get("name"),
     surname: formData.get("surname"),
@@ -32,25 +47,19 @@ export const signupWithCredentials = async (
 
   if (!validationResult.success) {
     const errors = z.treeifyError(validationResult.error);
-    return { errors };
+    return { validationErrors: errors };
   }
 
   const { name, surname, username, email, password } = validationResult.data;
-
   const hashedPassword = await bcrypt.hash(password, 10);
 
-  const profile = await prisma.profile.create({
-    data: {
-      name,
-      surname,
-      username,
-      email,
-      password: hashedPassword,
-    },
-  });
+  try {
+    await prisma.profile.create({
+      data: { name, surname, username, email, password: hashedPassword },
+    });
 
-  if (!profile) {
-    return { errors: { email: ["User already exists or DB error"] } };
+    return { success: true, email, password };
+  } catch (err) {
+    return { systemErrors: ["User already exists or DB error"] };
   }
-  return { success: true, email, password };
 };

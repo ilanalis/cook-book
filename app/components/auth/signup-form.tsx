@@ -80,6 +80,11 @@ const SignUpForm: React.FC<SignUpFormProps> = ({ isLoading, setIsLoading }) => {
           borderColor: "#fff",
         },
         "& .MuiFormHelperText-root": { color: "#ffe0e0" },
+        "& .MuiInput-underline:before": { borderBottomColor: "#fff" },
+        "& .MuiInput-underline:after": { borderBottomColor: "#fff" },
+        "& .MuiInput-underline:hover:not(.Mui-disabled):before": {
+          borderBottomColor: "#fff",
+        },
       }}
       noValidate
       autoComplete="off"
@@ -91,6 +96,7 @@ const SignUpForm: React.FC<SignUpFormProps> = ({ isLoading, setIsLoading }) => {
         label="Name"
         error={!!validationError?.name}
         helperText={validationError?.name?.errors[0]}
+        variant="standard"
       />
       <TextField
         type="text"
@@ -98,6 +104,7 @@ const SignUpForm: React.FC<SignUpFormProps> = ({ isLoading, setIsLoading }) => {
         label="Surname"
         error={!!validationError?.surname}
         helperText={validationError?.surname?.errors[0]}
+        variant="standard"
       />
       <TextField
         type="text"
@@ -105,6 +112,7 @@ const SignUpForm: React.FC<SignUpFormProps> = ({ isLoading, setIsLoading }) => {
         label="Username"
         error={!!validationError?.username}
         helperText={validationError?.username?.errors[0]}
+        variant="standard"
       />
       <TextField
         type="email"
@@ -114,6 +122,7 @@ const SignUpForm: React.FC<SignUpFormProps> = ({ isLoading, setIsLoading }) => {
         helperText={
           validationError?.email?.errors[0] ?? "e.g., example@mail.com"
         }
+        variant="standard"
       />
       <TextField
         type="password"
@@ -122,6 +131,7 @@ const SignUpForm: React.FC<SignUpFormProps> = ({ isLoading, setIsLoading }) => {
         autoComplete="new-password"
         error={!!validationError?.password}
         helperText={validationError?.password?.errors[0]}
+        variant="standard"
       />
       <TextField
         type="password"
@@ -130,6 +140,7 @@ const SignUpForm: React.FC<SignUpFormProps> = ({ isLoading, setIsLoading }) => {
         autoComplete="new-password"
         error={!!validationError?.confirmPassword}
         helperText={validationError?.confirmPassword?.errors[0]}
+        variant="standard"
       />
       {state?.systemErrors && (
         <Alert severity="error">{state.systemErrors.join(", ")}</Alert>

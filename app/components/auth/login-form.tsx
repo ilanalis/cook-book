@@ -66,6 +66,11 @@ const LoginForm: React.FC<LoginFormProps> = ({ setIsLoading, isLoading }) => {
           borderColor: "#fff",
         },
         "& .MuiFormHelperText-root": { color: "#ffe0e0" },
+        "& .MuiInput-underline:before": { borderBottomColor: "#fff" },
+        "& .MuiInput-underline:after": { borderBottomColor: "#fff" },
+        "& .MuiInput-underline:hover:not(.Mui-disabled):before": {
+          borderBottomColor: "#fff",
+        },
       }}
       noValidate
       autoComplete="off"
@@ -78,6 +83,7 @@ const LoginForm: React.FC<LoginFormProps> = ({ setIsLoading, isLoading }) => {
         value={emailValue}
         onChange={handleEmailChange}
         error={!!errorText}
+        variant="standard"
       />
       <TextField
         type="password"
@@ -87,6 +93,7 @@ const LoginForm: React.FC<LoginFormProps> = ({ setIsLoading, isLoading }) => {
         onChange={handlePasswordChange}
         error={!!errorText}
         autoComplete="current-password"
+        variant="standard"
       />
       {errorText && <FormHelperText error>{errorText}</FormHelperText>}
       <Button

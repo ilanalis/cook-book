@@ -59,17 +59,27 @@ const Auth = () => {
     >
       <Box
         sx={{
+          position: "absolute",
+          top: 0,
+          left: 0,
+          right: 0,
+          bottom: 0,
+          bgcolor: "rgba(0,0,0,0.5)",
+        }}
+      />
+      <Box
+        sx={{
           mx: "auto",
-          width: { xs: "90%", sm: "70%", md: "50%", lg: "400px" },
+          width: { xs: "90%", sm: "70%", md: "50%", lg: "500px" },
           maxHeight: "90vh",
           overflowY: "auto",
           borderRadius: 3,
-          backgroundColor: "rgba(0, 0, 0, 0.6)",
+          backgroundColor: "rgba(63, 55, 55, 0.6)",
           color: "#fff",
           backdropFilter: "blur(10px)",
           WebkitBackdropFilter: "blur(10px)",
-          border: "1px solid rgba(255, 255, 255, 0.3)",
           boxShadow: "0 4px 30px rgba(0,0,0,0.1)",
+          minHeight: "653px",
         }}
       >
         <Box

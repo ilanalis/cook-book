@@ -2,6 +2,7 @@
 
 import { CssBaseline, ThemeProvider } from "@mui/material";
 import amberTheme from "./theme";
+import ClientSessionWrapper from "./clientSessionWrapper";
 
 export default function ClientThemeProvider({
   children,
@@ -11,7 +12,7 @@ export default function ClientThemeProvider({
   return (
     <ThemeProvider theme={amberTheme}>
       <CssBaseline />
-      {children}
+      <ClientSessionWrapper>{children}</ClientSessionWrapper>
     </ThemeProvider>
   );
 }

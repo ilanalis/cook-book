@@ -4,7 +4,7 @@ import { orange } from "@mui/material/colors";
 const amberTheme = createTheme({
   palette: {
     primary: {
-      main: "#c62828",
+      main: "#ca4848ff",
       dark: "#8e0000",
       contrastText: "#ffffff",
     },

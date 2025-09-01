@@ -55,6 +55,8 @@ const Auth = () => {
         backgroundPosition: "center",
         backgroundRepeat: "no-repeat",
         overflowY: "auto",
+        position: "relative",
+        boxSizing: "border-box",
       }}
     >
       <Box

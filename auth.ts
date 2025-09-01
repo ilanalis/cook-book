@@ -4,7 +4,7 @@ import GoogleProvider from "next-auth/providers/google";
 import CredentialsProvider from "next-auth/providers/credentials";
 import bcrypt from "bcrypt";
 import { prisma } from "@/lib/prisma";
-import { loginSchema } from "@/lib/definitions";
+import { loginSchema } from "@/lib/definitions/users";
 
 export const { auth, handlers, signIn, signOut } = NextAuth({
   providers: [
@@ -35,7 +35,7 @@ export const { auth, handlers, signIn, signOut } = NextAuth({
         const password = credentials.password as string;
 
         const user = await prisma.profile.findUnique({ where: { email } });
-        if (!user) return null;
+        if (!user || !user.password) return null;
 
         const isValid = await bcrypt.compare(password, user.password);
         if (!isValid) return null;
@@ -44,6 +44,31 @@ export const { auth, handlers, signIn, signOut } = NextAuth({
       },
     }),
   ],
+  callbacks: {
+    async signIn({ user, account, profile }) {
+      let existing = await prisma.profile.findUnique({
+        where: { email: user.email! },
+      });
+      if (!existing) {
+        await prisma.profile.create({
+          data: {
+            name: user.name!,
+            email: user.email!,
+          },
+        });
+      }
+      return true;
+    },
+    async session({ session, user }) {
+      const dbUser = await prisma.profile.findUnique({
+        where: { email: session.user!.email! },
+      });
+      if (dbUser) {
+        session.user.id = dbUser.id;
+      }
+      return session;
+    },
+  },
 
   session: {
     strategy: "jwt",

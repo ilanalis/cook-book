@@ -46,9 +46,21 @@ const Header: React.FC = () => {
         </Typography>
         <Box sx={{ display: "flex", gap: 2 }}>
           {isLoggedIn ? (
-            <Button color="inherit">Profile</Button>
+            <Link
+              href="/dashboard/profile"
+              color="inherit"
+              style={{ textDecoration: "none", color: "inherit" }}
+            >
+              Profile
+            </Link>
           ) : (
-            <Button color="inherit">Log in</Button>
+            <Link
+              href="/auth"
+              color="inherit"
+              style={{ textDecoration: "none", color: "inherit" }}
+            >
+              Log in
+            </Link>
           )}
         </Box>
       </Toolbar>

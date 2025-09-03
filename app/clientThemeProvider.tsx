@@ -1,7 +1,7 @@
 "use client";
 
 import { CssBaseline, ThemeProvider } from "@mui/material";
-import amberTheme from "./theme";
+import myTheme from "./theme";
 import ClientSessionWrapper from "./clientSessionWrapper";
 
 export default function ClientThemeProvider({
@@ -10,7 +10,7 @@ export default function ClientThemeProvider({
   children: React.ReactNode;
 }) {
   return (
-    <ThemeProvider theme={amberTheme}>
+    <ThemeProvider theme={myTheme}>
       <CssBaseline />
       <ClientSessionWrapper>{children}</ClientSessionWrapper>
     </ThemeProvider>

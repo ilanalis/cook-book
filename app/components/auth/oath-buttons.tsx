@@ -1,6 +1,6 @@
 "use client";
 
-import { loginWithGithub, loginWithGoogle } from "@/lib/actions/auth";
+import { loginWithGithub, loginWithGoogle } from "@/auth/actions";
 import { Button, Stack } from "@mui/material";
 import GoogleIcon from "@mui/icons-material/Google";
 import GitHubIcon from "@mui/icons-material/GitHub";

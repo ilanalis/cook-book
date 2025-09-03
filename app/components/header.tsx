@@ -25,7 +25,7 @@ const Header: React.FC = () => {
           width: "100%",
           color: "white",
           fontSize: "18px",
-          "& .MuiButton-root": { fontSize: "18px", color: "white" }, // кнопки
+          "& .MuiButton-root": { fontSize: "18px", color: "white" },
           "& .MuiTypography-root": {
             fontSize: "20px",
             fontWeight: "bold",

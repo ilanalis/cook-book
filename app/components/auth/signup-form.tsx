@@ -14,8 +14,8 @@ import {
   TextField,
 } from "@mui/material";
 import { signIn } from "next-auth/react";
-import { signupWithCredentials } from "@/lib/actions/auth";
-import { SignupFormFields } from "@/lib/definitions";
+import { signupWithCredentials } from "@/auth/actions";
+import { SignupFormFields } from "@/lib/definitions/users";
 
 interface SignUpFormProps {
   isLoading: boolean;
@@ -65,26 +65,6 @@ const SignUpForm: React.FC<SignUpFormProps> = ({ isLoading, setIsLoading }) => {
       component="form"
       sx={{
         width: "100%",
-        "& .MuiTextField-root": { width: "100%", mb: 2 },
-        "& .MuiInputBase-input": { color: "#fff" },
-        "& input::placeholder": { color: "rgba(255,255,255,0.7)" },
-        "& .MuiInputLabel-root": { color: "rgba(255,255,255,0.85)" },
-        "& .MuiInputLabel-root.Mui-focused": { color: "#fff" },
-        "& .MuiOutlinedInput-root > fieldset": {
-          borderColor: "rgba(255,255,255,0.4)",
-        },
-        "& .MuiOutlinedInput-root:hover > fieldset": {
-          borderColor: "#fff",
-        },
-        "& .MuiOutlinedInput-root.Mui-focused > fieldset": {
-          borderColor: "#fff",
-        },
-        "& .MuiFormHelperText-root": { color: "#ffe0e0" },
-        "& .MuiInput-underline:before": { borderBottomColor: "#fff" },
-        "& .MuiInput-underline:after": { borderBottomColor: "#fff" },
-        "& .MuiInput-underline:hover:not(.Mui-disabled):before": {
-          borderBottomColor: "#fff",
-        },
       }}
       noValidate
       autoComplete="off"

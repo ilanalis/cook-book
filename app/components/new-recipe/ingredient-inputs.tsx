@@ -7,12 +7,14 @@ interface IngredientInputsProps {
   ingredients: Ingredient[];
   setIngredients: React.Dispatch<React.SetStateAction<Ingredient[]>>;
   error: NewRecipeErrors | null;
+  validate: () => void;
 }
 
 const IngredientInputs: React.FC<IngredientInputsProps> = ({
   ingredients,
   setIngredients,
   error,
+  validate,
 }) => {
   const handleIngredientChange = <K extends keyof Ingredient>(
     ingredientId: string,
@@ -106,6 +108,7 @@ const IngredientInputs: React.FC<IngredientInputsProps> = ({
                       id={ing.id}
                       setItems={setIngredients}
                       type={"ingredient"}
+                      validate={validate}
                     />
                   )}
                 </Box>

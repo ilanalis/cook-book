@@ -9,21 +9,24 @@ interface DeleteIconComponentProps<
   id: string;
   setItems: React.Dispatch<React.SetStateAction<T[]>>;
   type: "step" | "ingredient";
+  validate: () => void;
 }
 
 const DeleteIconComponent = <T extends { id: string; stepNumber?: number }>({
   id,
   setItems,
   type,
+  validate,
 }: DeleteIconComponentProps<T>) => {
   const handleDeleteItem = () => {
     setItems((prev) => {
       const filteredItems = prev.filter((item) => item.id !== id);
       if (type === "step") {
-        return filteredItems.map((item, index) => ({
+        const reindexedItems = filteredItems.map((item, index) => ({
           ...item,
           stepNumber: index + 1,
         }));
+        return reindexedItems;
       }
       return filteredItems;
     });

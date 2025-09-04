@@ -7,9 +7,15 @@ interface StepInputsProps {
   steps: Step[];
   setSteps: React.Dispatch<React.SetStateAction<Step[]>>;
   error: NewRecipeErrors | null;
+  validate: () => void;
 }
 
-const StepInputs: React.FC<StepInputsProps> = ({ steps, setSteps, error }) => {
+const StepInputs: React.FC<StepInputsProps> = ({
+  steps,
+  setSteps,
+  error,
+  validate,
+}) => {
   const handleStepChange = (stepId: string, value: string) => {
     setSteps((prev) =>
       prev.map((step) =>
@@ -61,6 +67,7 @@ const StepInputs: React.FC<StepInputsProps> = ({ steps, setSteps, error }) => {
                       id={step.id}
                       setItems={setSteps}
                       type={"step"}
+                      validate={validate}
                     />
                   )}
                 </Box>

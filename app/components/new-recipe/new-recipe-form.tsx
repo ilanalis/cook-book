@@ -6,6 +6,7 @@ import React, {
   startTransition,
   useActionState,
   useEffect,
+  useRef,
   useState,
 } from "react";
 import IngredientInputs from "./ingredient-inputs";
@@ -30,10 +31,26 @@ const NewRecipeForm: React.FC = ({}) => {
   const [steps, setSteps] = useState<Step[]>([
     { id: crypto.randomUUID(), stepNumber: 1, description: "" },
   ]);
-
+  const router = useRouter();
+  const prevStepsRef = useRef<Step[]>(steps);
+  const prevIngredientsRef = useRef<Ingredient[]>(ingredients);
   const [error, setError] = useState<NewRecipeErrors | null>(null);
   const [state, action] = useActionState(createRecipe, undefined);
-  const router = useRouter();
+
+  useEffect(() => {
+    const prevSteps = prevStepsRef.current;
+    const prevIngredients = prevIngredientsRef.current;
+
+    const stepsDeleted = steps.length < prevSteps.length;
+    const ingredientsDeleted = ingredients.length < prevIngredients.length;
+
+    if (stepsDeleted || ingredientsDeleted) {
+      validate();
+    }
+
+    prevStepsRef.current = steps;
+    prevIngredientsRef.current = ingredients;
+  }, [steps, ingredients]);
 
   useEffect(() => {
     if (state?.success) {
@@ -55,10 +72,7 @@ const NewRecipeForm: React.FC = ({}) => {
     setDescriptionValue(e.target.value);
   };
 
-  const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
-    e.preventDefault();
-    // setIsLoading(true);
-
+  const validate = () => {
     const dataToValidate = {
       title: titleValue,
       description: descriptionValue,
@@ -72,20 +86,24 @@ const NewRecipeForm: React.FC = ({}) => {
       const validationErrors = z.treeifyError(validationResult.error);
       setError(validationErrors?.properties ?? null);
       setIsLoading(false);
-
       return;
     }
     setError(null);
-    console.log(ingredients, steps);
-    const formData = new FormData();
-    // formData.append("title", titleValue);
-    // formData.append("description", descriptionValue);
-    // formData.append("ingredients", JSON.stringify(ingredients));
-    // formData.append("steps", JSON.stringify(steps));
+  };
 
-    // startTransition(() => {
-    //   action(formData);
-    // });
+  const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
+    e.preventDefault();
+    setIsLoading(true);
+    validate();
+    const formData = new FormData();
+    formData.append("title", titleValue);
+    formData.append("description", descriptionValue);
+    formData.append("ingredients", JSON.stringify(ingredients));
+    formData.append("steps", JSON.stringify(steps));
+
+    startTransition(() => {
+      action(formData);
+    });
   };
 
   return (
@@ -123,8 +141,14 @@ const NewRecipeForm: React.FC = ({}) => {
         ingredients={ingredients}
         setIngredients={setIngredients}
         error={error}
+        validate={validate}
       />
-      <StepInputs steps={steps} setSteps={setSteps} error={error} />
+      <StepInputs
+        steps={steps}
+        setSteps={setSteps}
+        error={error}
+        validate={validate}
+      />
       <Button
         type="submit"
         variant="contained"

@@ -9,7 +9,7 @@ export const createRecipe = async (_state: unknown, formData: FormData) => {
     const session = await auth();
     const userId = session?.user?.id;
     if (!userId) {
-      console.log("user is nor logged in");
+      console.log("user is not logged in");
       return null;
     }
 

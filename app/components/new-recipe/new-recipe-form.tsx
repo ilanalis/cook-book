@@ -25,10 +25,10 @@ const NewRecipeForm: React.FC = ({}) => {
   const [titleValue, setTitleValue] = useState("");
   const [descriptionValue, setDescriptionValue] = useState("");
   const [ingredients, setIngredients] = useState<Ingredient[]>([
-    { ingredientName: "", quantity: 0, unit: "" },
+    { id: crypto.randomUUID(), ingredientName: "", quantity: 0, unit: "" },
   ]);
   const [steps, setSteps] = useState<Step[]>([
-    { stepNumber: 1, description: "" },
+    { id: crypto.randomUUID(), stepNumber: 1, description: "" },
   ]);
 
   const [error, setError] = useState<NewRecipeErrors | null>(null);
@@ -57,7 +57,7 @@ const NewRecipeForm: React.FC = ({}) => {
 
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    setIsLoading(true);
+    // setIsLoading(true);
 
     const dataToValidate = {
       title: titleValue,
@@ -76,16 +76,16 @@ const NewRecipeForm: React.FC = ({}) => {
       return;
     }
     setError(null);
-
+    console.log(ingredients, steps);
     const formData = new FormData();
-    formData.append("title", titleValue);
-    formData.append("description", descriptionValue);
-    formData.append("ingredients", JSON.stringify(ingredients));
-    formData.append("steps", JSON.stringify(steps));
+    // formData.append("title", titleValue);
+    // formData.append("description", descriptionValue);
+    // formData.append("ingredients", JSON.stringify(ingredients));
+    // formData.append("steps", JSON.stringify(steps));
 
-    startTransition(() => {
-      action(formData);
-    });
+    // startTransition(() => {
+    //   action(formData);
+    // });
   };
 
   return (

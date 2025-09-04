@@ -1,6 +1,7 @@
 import { NewRecipeErrors, Step } from "@/lib/definitions/recipes";
 import { Box, Button, TextField, Typography } from "@mui/material";
 import React from "react";
+import DeleteIconComponent from "./delete-button";
 
 interface StepInputsProps {
   steps: Step[];
@@ -9,51 +10,66 @@ interface StepInputsProps {
 }
 
 const StepInputs: React.FC<StepInputsProps> = ({ steps, setSteps, error }) => {
-  const handleStepChange = (stepNumber: number, value: string) => {
-    setSteps((prev) => {
-      const newSteps = [...prev];
-      newSteps[stepNumber - 1].description = value;
-      return newSteps;
-    });
+  const handleStepChange = (stepId: string, value: string) => {
+    setSteps((prev) =>
+      prev.map((step) =>
+        step.id === stepId ? { ...step, description: value } : step
+      )
+    );
   };
 
   const handleAddingStep = () => {
     setSteps((prev) => [
       ...prev,
-      { stepNumber: steps.length + 1, description: "" },
+      {
+        id: crypto.randomUUID(),
+        stepNumber: steps.length + 1,
+        description: "",
+      },
     ]);
   };
 
   return (
     <Box>
       <Typography variant="h2">Steps</Typography>
-      {steps.map((step, i) => {
-        return (
-          <Box key={i}>
-            <Box display="flex" gap={3} alignItems="center">
-              <Typography>{step.stepNumber}.</Typography>
-              <TextField
-                type="text"
-                name="step"
-                label="Description"
-                value={steps[i].description}
-                onChange={(e) =>
-                  handleStepChange(step.stepNumber, e.target.value)
-                }
-                error={
-                  !!error?.steps?.items?.[i]?.properties?.description?.errors
-                    ?.length
-                }
-                helperText={
-                  error?.steps?.items?.[i]?.properties?.description?.errors?.[0]
-                }
-                variant="standard"
-                autoFocus={i === steps.length - 1}
-              />
+      <Box display={"flex"} flexDirection={"column"} gap={1}>
+        {steps.map((step, i) => {
+          return (
+            <Box key={step.id}>
+              <Box display="flex" gap={3} alignItems="center">
+                <Typography>{step.stepNumber}.</Typography>
+                <TextField
+                  type="text"
+                  name="step"
+                  label="Description"
+                  value={step.description}
+                  onChange={(e) => handleStepChange(step.id, e.target.value)}
+                  error={
+                    !!error?.steps?.items?.[i]?.properties?.description?.errors
+                      ?.length
+                  }
+                  helperText={
+                    error?.steps?.items?.[i]?.properties?.description
+                      ?.errors?.[0]
+                  }
+                  variant="standard"
+                  autoFocus={i === steps.length - 1}
+                />
+                <Box sx={{ width: 115 }}>
+                  {i !== 0 && (
+                    <DeleteIconComponent
+                      id={step.id}
+                      setItems={setSteps}
+                      type={"step"}
+                    />
+                  )}
+                </Box>
+              </Box>
             </Box>
-          </Box>
-        );
-      })}
+          );
+        })}
+      </Box>
+
       <Button onClick={handleAddingStep} sx={{ fontSize: "1.3rem" }}>
         + add step
       </Button>

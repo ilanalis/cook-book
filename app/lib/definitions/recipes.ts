@@ -26,11 +26,13 @@ export type Ingredient = {
   ingredientName: string;
   quantity: number;
   unit: string;
+  id: string;
 };
 
 export type Step = {
   stepNumber: number;
   description: string;
+  id: string;
 };
 
 type TreeifiedIngredientError = {

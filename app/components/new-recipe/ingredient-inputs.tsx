@@ -55,6 +55,7 @@ const IngredientInputs: React.FC<IngredientInputsProps> = ({
                     ?.errors?.[0]
                 }
                 variant="standard"
+                autoFocus={i === ingredients.length - 1}
               />
               <TextField
                 label="Quantity"

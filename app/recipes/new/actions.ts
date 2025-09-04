@@ -74,6 +74,7 @@ export const createRecipe = async (_state: unknown, formData: FormData) => {
         })
       );
     });
+    return { success: true };
   } catch (err) {
     console.error(err);
     return { success: false, errors: ["Internal server error"] };

@@ -1,3 +1,5 @@
+"use client";
+
 import NewRecipeForm from "@/components/new-recipe/new-recipe-form";
 import { Container, Box, Typography } from "@mui/material";
 

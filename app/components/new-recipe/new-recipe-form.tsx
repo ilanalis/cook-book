@@ -1,8 +1,13 @@
 "use client";
 
 import { createRecipe } from "@/recipes/new/actions";
-import { Alert, Button, Snackbar, Stack, TextField } from "@mui/material";
-import React, { startTransition, useActionState, useState } from "react";
+import { Button, Stack, TextField } from "@mui/material";
+import React, {
+  startTransition,
+  useActionState,
+  useEffect,
+  useState,
+} from "react";
 import IngredientInputs from "./ingredient-inputs";
 import StepInputs from "./step-inputs";
 import {
@@ -13,6 +18,7 @@ import {
 } from "@/lib/definitions/recipes";
 import z from "zod";
 import { useRouter } from "next/navigation";
+import { enqueueSnackbar } from "notistack";
 
 const NewRecipeForm: React.FC = ({}) => {
   const [isLoading, setIsLoading] = useState(false);
@@ -27,8 +33,19 @@ const NewRecipeForm: React.FC = ({}) => {
 
   const [error, setError] = useState<NewRecipeErrors | null>(null);
   const [state, action] = useActionState(createRecipe, undefined);
-  const [open, setOpen] = useState(false);
   const router = useRouter();
+
+  useEffect(() => {
+    if (state?.success) {
+      enqueueSnackbar("Recipe created successfully!", { variant: "success" });
+      setTimeout(() => router.push("/recipes"), 2000);
+    }
+    if (state?.errors) {
+      enqueueSnackbar("Failed to create recipe! Please try again", {
+        variant: "error",
+      });
+    }
+  }, [state]);
 
   const handleTitleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     setTitleValue(e.target.value);
@@ -66,13 +83,9 @@ const NewRecipeForm: React.FC = ({}) => {
     formData.append("ingredients", JSON.stringify(ingredients));
     formData.append("steps", JSON.stringify(steps));
 
-    try {
-      startTransition(() => {
-        action(formData);
-      });
-      setOpen(true);
-      setTimeout(() => router.push("/recipes"), 2000);
-    } catch {}
+    startTransition(() => {
+      action(formData);
+    });
   };
 
   return (
@@ -94,6 +107,7 @@ const NewRecipeForm: React.FC = ({}) => {
         error={!!error?.title?.errors[0]}
         helperText={error?.title?.errors[0]}
         variant="standard"
+        autoFocus={true}
       />
       <TextField
         type="text"
@@ -111,9 +125,6 @@ const NewRecipeForm: React.FC = ({}) => {
         error={error}
       />
       <StepInputs steps={steps} setSteps={setSteps} error={error} />
-      {state?.errors && (
-        <Alert severity="error">Some error occurred. Plese try again</Alert>
-      )}
       <Button
         type="submit"
         variant="contained"
@@ -122,11 +133,6 @@ const NewRecipeForm: React.FC = ({}) => {
       >
         {isLoading ? "Loading..." : "Create recipe"}
       </Button>
-      <Snackbar open={open} autoHideDuration={2000}>
-        <Alert severity="success" sx={{ width: "100%" }}>
-          Recipe created successfully!
-        </Alert>
-      </Snackbar>
     </Stack>
   );
 };

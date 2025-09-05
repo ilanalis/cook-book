@@ -38,6 +38,7 @@ const NewRecipeForm: React.FC = ({}) => {
   const [state, action] = useActionState(createRecipe, undefined);
 
   useEffect(() => {
+    if (!error) return;
     const prevSteps = prevStepsRef.current;
     const prevIngredients = prevIngredientsRef.current;
 

@@ -3,6 +3,7 @@
 import LoginForm from "@/components/auth/login-form";
 import OAthButtons from "@/components/auth/oath-buttons";
 import SignUpForm from "@/components/auth/signup-form";
+import Overlay from "@/ui/overlay";
 import { Box, Tab, Tabs } from "@mui/material";
 import React, { useState } from "react";
 
@@ -59,16 +60,7 @@ const Auth = () => {
         boxSizing: "border-box",
       }}
     >
-      <Box
-        sx={{
-          position: "absolute",
-          top: 0,
-          left: 0,
-          right: 0,
-          bottom: 0,
-          bgcolor: "rgba(0,0,0,0.5)",
-        }}
-      />
+      <Overlay />
       <Box
         sx={{
           mx: "auto",

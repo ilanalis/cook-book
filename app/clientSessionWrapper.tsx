@@ -9,11 +9,9 @@ export default function ClientSessionWrapper({
   children: React.ReactNode;
 }) {
   return (
-    <>
-      <SessionProvider>
-        <Header />
-        {children}
-      </SessionProvider>
-    </>
+    <SessionProvider>
+      <Header />
+      {children}
+    </SessionProvider>
   );
 }

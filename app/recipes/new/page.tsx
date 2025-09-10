@@ -1,8 +1,9 @@
 "use client";
 
 import NewRecipeForm from "@/components/new-recipe/new-recipe-form";
+import MyContainer from "@/ui/myContainer";
 import Overlay from "@/ui/overlay";
-import { Container, Box, Typography } from "@mui/material";
+import { Box, Typography } from "@mui/material";
 
 const NewRecipe = () => {
   return (
@@ -22,23 +23,12 @@ const NewRecipe = () => {
       }}
     >
       <Overlay />
-      <Container
-        sx={{
-          mx: "auto",
-          borderRadius: 3,
-          backgroundColor: "rgba(63, 55, 55, 0.6)",
-          color: "#fff",
-          backdropFilter: "blur(10px)",
-          WebkitBackdropFilter: "blur(10px)",
-          boxShadow: "0 4px 30px rgba(0,0,0,0.1)",
-          p: "30px",
-        }}
-      >
+      <MyContainer>
         <Typography textAlign={"center"} variant="h1">
           Create new recipe
         </Typography>
         <NewRecipeForm />
-      </Container>
+      </MyContainer>
     </Box>
   );
 };

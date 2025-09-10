@@ -14,6 +14,13 @@ export const fetchRecipes = async (page: number) => {
     orderBy: {
       createdAt: "desc",
     },
+    include: {
+      recipeIngredients: {
+        include: {
+          ingredient: true,
+        },
+      },
+    },
   });
   return recipes;
 };

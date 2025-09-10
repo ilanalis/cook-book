@@ -17,28 +17,6 @@ const myTheme = createTheme({
     },
   },
   components: {
-    MuiButton: {
-      styleOverrides: {
-        root: {
-          textTransform: "none",
-          borderRadius: "8px",
-          "&.MuiButton-contained": {
-            backgroundColor: "#ffffff",
-            color: "#000000",
-            "&:hover": {
-              backgroundColor: "#f0f0f0",
-            },
-          },
-          "&.MuiButton-text": {
-            color: "#ffffff",
-            "&:hover": {
-              backgroundColor: "rgba(255,255,255,0.1)",
-            },
-          },
-        },
-      },
-    },
-
     MuiTextField: {
       styleOverrides: {
         root: {
@@ -84,6 +62,27 @@ const myTheme = createTheme({
       styleOverrides: {
         root: {
           color: "#ffe0e0",
+        },
+      },
+    },
+    MuiButton: {
+      styleOverrides: {
+        root: {
+          textTransform: "none",
+          borderRadius: "8px",
+        },
+        contained: {
+          backgroundColor: "#ffffff",
+          color: "#000000",
+          "&:hover": {
+            backgroundColor: "#e0e0e0dd",
+          },
+        },
+        text: {
+          color: "#ffffff",
+          "&:hover": {
+            backgroundColor: "rgba(255,255,255,0.1)",
+          },
         },
       },
     },

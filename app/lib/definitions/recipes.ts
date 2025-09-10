@@ -1,3 +1,4 @@
+import { Prisma } from "@prisma/client";
 import z from "zod";
 
 const ingredientSchema = z.object({
@@ -64,3 +65,18 @@ export type NewRecipeErrors = {
   ingredients?: TreeifiedIngredientError;
   steps?: TreeifiedStepError;
 };
+
+const recipeWithIngredientsRelations =
+  Prisma.validator<Prisma.RecipeDefaultArgs>()({
+    include: {
+      recipeIngredients: {
+        include: {
+          ingredient: true,
+        },
+      },
+    },
+  });
+
+export type recipeWithIngredientsRelations = Prisma.RecipeGetPayload<
+  typeof recipeWithIngredientsRelations
+>;

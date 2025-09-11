@@ -26,7 +26,7 @@ export const RecipeClient: React.FC<RecipeClientProps> = async ({ recipe }) => {
           sx={{
             marginTop: 3,
             border: "0.2px solid ",
-            maxWidth: 350,
+            maxWidth: 400,
             padding: 2,
             borderRadius: 5,
           }}
@@ -87,6 +87,9 @@ export const RecipeClient: React.FC<RecipeClientProps> = async ({ recipe }) => {
           );
         })}
       </Box>
+      <Typography textAlign={"end"} mt={2}>
+        Author: {recipe.user.name}
+      </Typography>
     </Box>
   );
 };

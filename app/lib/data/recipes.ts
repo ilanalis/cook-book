@@ -35,6 +35,7 @@ export const fetchRecipeById = async (id: string) => {
         },
       },
       steps: true,
+      user: true,
     },
   });
   return recipe;

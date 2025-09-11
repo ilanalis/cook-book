@@ -89,6 +89,7 @@ const RecipeWithAllRelations = Prisma.validator<Prisma.RecipeDefaultArgs>()({
       },
     },
     steps: true,
+    user: true,
   },
 });
 

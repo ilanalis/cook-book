@@ -4,7 +4,7 @@ const myTheme = createTheme({
   palette: {
     primary: {
       main: "#ffffff",
-      dark: "#ffffff",
+      dark: "#f99090ff",
       contrastText: "#000000",
     },
     secondary: {
@@ -82,6 +82,18 @@ const myTheme = createTheme({
           color: "#ffffff",
           "&:hover": {
             backgroundColor: "rgba(255,255,255,0.1)",
+          },
+        },
+      },
+    },
+    MuiLink: {
+      styleOverrides: {
+        root: {
+          color: "inherit", // наследовать цвет от родителя
+          textDecoration: "none", // убрать подчёркивание
+          "&:hover": {
+            color: "#90caf9", // например голубой на hover
+            textDecoration: "underline",
           },
         },
       },

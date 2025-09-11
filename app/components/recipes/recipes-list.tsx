@@ -2,6 +2,7 @@
 
 import { recipeWithIngredientsRelations } from "@/lib/definitions/recipes";
 import { Box, Pagination, Typography } from "@mui/material";
+import Link from "next/link";
 import React, { useState } from "react";
 
 interface RecipesListProps {
@@ -38,7 +39,20 @@ const RecipesList: React.FC<RecipesListProps> = ({
               p: "20px 15px 20px",
             }}
           >
-            <Typography variant="h2" sx={{ marginBottom: 2 }}>
+            <Typography
+              component={Link}
+              href={`/recipes/${recipe.id}`}
+              variant="h2"
+              sx={{
+                mb: 2,
+                color: "text.primary",
+                textDecoration: "none",
+                transition: "color 0.2s",
+                "&:hover": {
+                  color: "#f99090ff",
+                },
+              }}
+            >
               {recipe.title}
             </Typography>
 

@@ -80,3 +80,18 @@ const recipeWithIngredientsRelations =
 export type recipeWithIngredientsRelations = Prisma.RecipeGetPayload<
   typeof recipeWithIngredientsRelations
 >;
+
+const RecipeWithAllRelations = Prisma.validator<Prisma.RecipeDefaultArgs>()({
+  include: {
+    recipeIngredients: {
+      include: {
+        ingredient: true,
+      },
+    },
+    steps: true,
+  },
+});
+
+export type recipeWithAllRelations = Prisma.RecipeGetPayload<
+  typeof RecipeWithAllRelations
+>;

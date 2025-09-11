@@ -22,3 +22,20 @@ export const fetchRecipes = async (page: number, pageSize: number) => {
   });
   return recipes;
 };
+
+export const fetchRecipeById = async (id: string) => {
+  const recipe = await prisma.recipe.findUnique({
+    where: {
+      id,
+    },
+    include: {
+      recipeIngredients: {
+        include: {
+          ingredient: true,
+        },
+      },
+      steps: true,
+    },
+  });
+  return recipe;
+};

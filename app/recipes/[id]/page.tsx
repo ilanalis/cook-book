@@ -4,6 +4,7 @@ import { RecipeClient } from "./recipeClient";
 import MyContainer from "@/ui/myContainer";
 import Overlay from "@/ui/overlay";
 import { Box } from "@mui/material";
+import { auth } from "../../../auth";
 
 interface RecipeProps {
   params: Promise<{ id: string }>;
@@ -12,6 +13,8 @@ interface RecipeProps {
 const Recipe: React.FC<RecipeProps> = async ({ params }) => {
   const { id } = await params;
   const recipe = await fetchRecipeById(id);
+  const session = await auth();
+  const isUserAuthor = session?.user?.id === recipe?.user.id;
 
   if (recipe)
     return (
@@ -32,7 +35,7 @@ const Recipe: React.FC<RecipeProps> = async ({ params }) => {
       >
         <Overlay />
         <MyContainer>
-          <RecipeClient recipe={recipe} />
+          <RecipeClient recipe={recipe} isUserAuthor={isUserAuthor} />
         </MyContainer>
       </Box>
     );

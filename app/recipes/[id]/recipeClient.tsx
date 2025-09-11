@@ -1,12 +1,34 @@
+"use client";
+
 import React from "react";
 import { recipeWithAllRelations } from "@/lib/definitions/recipes";
-import { Box, Typography } from "@mui/material";
+import { Box, Button, Typography } from "@mui/material";
+import { enqueueSnackbar } from "notistack";
+import { useRouter } from "next/navigation";
 
 interface RecipeClientProps {
   recipe: recipeWithAllRelations;
+  isUserAuthor: boolean;
 }
 
-export const RecipeClient: React.FC<RecipeClientProps> = async ({ recipe }) => {
+export const RecipeClient: React.FC<RecipeClientProps> = ({
+  recipe,
+  isUserAuthor,
+}) => {
+  const router = useRouter();
+
+  const handleDeleteRecipe = async () => {
+    const res = await fetch(`/api/recipes/${recipe.id}`, {
+      method: "DELETE",
+    });
+    if (!res.ok) {
+      enqueueSnackbar("Failed to delete recipe!", { variant: "error" });
+      return;
+    }
+    enqueueSnackbar("Recipe deleted successfully!", { variant: "success" });
+    setTimeout(() => router.push("/recipes"), 2000);
+  };
+
   return (
     <Box>
       <Typography variant="h1" textAlign={"center"}>
@@ -38,7 +60,7 @@ export const RecipeClient: React.FC<RecipeClientProps> = async ({ recipe }) => {
           >
             Ingredients:{" "}
           </Typography>
-
+          if()
           {recipe.recipeIngredients.map((recIng) => (
             <Box
               key={recIng.id}
@@ -87,9 +109,25 @@ export const RecipeClient: React.FC<RecipeClientProps> = async ({ recipe }) => {
           );
         })}
       </Box>
-      <Typography textAlign={"end"} mt={2}>
-        Author: {recipe.user.name}
-      </Typography>
+      <Box
+        display={"flex"}
+        justifyContent={"space-between"}
+        alignItems={"center"}
+        mt={2}
+      >
+        {isUserAuthor && (
+          <Box>
+            <Button
+              sx={{ backgroundColor: "red" }}
+              onClick={handleDeleteRecipe}
+            >
+              delete
+            </Button>
+          </Box>
+        )}
+
+        <Typography textAlign={"end"}>Author: {recipe.user.name}</Typography>
+      </Box>
     </Box>
   );
 };

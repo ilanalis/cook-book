@@ -1,4 +1,4 @@
-import { SignOutButton } from "@/components/sign-out-button";
+import { SignOutButton } from "@/dashboard/profile/sign-out-button";
 import Image from "next/image";
 import { auth } from "../../../auth";
 

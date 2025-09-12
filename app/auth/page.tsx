@@ -1,9 +1,9 @@
 "use client";
 
-import LoginForm from "@/components/auth/login-form";
-import OAthButtons from "@/components/auth/oath-buttons";
-import SignUpForm from "@/components/auth/signup-form";
-import Overlay from "@/ui/overlay";
+import LoginForm from "@/auth/login-form";
+import OAthButtons from "@/auth/oath-buttons";
+import SignUpForm from "@/auth/signup-form";
+import Overlay from "@/components/overlay";
 import { Box, Tab, Tabs } from "@mui/material";
 import React, { useState } from "react";
 

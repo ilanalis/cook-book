@@ -1,9 +1,9 @@
-import RecipesList from "@/components/recipes/recipes-list";
+import RecipesList from "@/recipes/recipes-list";
 import { fetchRecipes, fetchRecipesCount } from "@/lib/data/recipes";
 import { auth } from "../../auth";
 import { Box, Button, Typography } from "@mui/material";
-import Overlay from "@/ui/overlay";
-import MyContainer from "@/ui/myContainer";
+import Overlay from "@/components/overlay";
+import MyContainer from "@/components/myContainer";
 import Link from "next/link";
 
 const Recipes = async () => {

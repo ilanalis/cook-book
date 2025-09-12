@@ -1,8 +1,8 @@
 "use client";
 
 import NewRecipeForm from "@/components/new-recipe/new-recipe-form";
-import MyContainer from "@/ui/myContainer";
-import Overlay from "@/ui/overlay";
+import MyContainer from "@/components/myContainer";
+import Overlay from "@/components/overlay";
 import { Box, Typography } from "@mui/material";
 
 const NewRecipe = () => {

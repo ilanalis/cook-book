@@ -1,10 +1,11 @@
 "use client";
 
-import React from "react";
+import React, { useState } from "react";
 import { recipeWithAllRelations } from "@/lib/definitions/recipes";
 import { Box, Button, Typography } from "@mui/material";
 import { enqueueSnackbar } from "notistack";
 import { useRouter } from "next/navigation";
+import { AlertDialog } from "./alertDialog";
 
 interface RecipeClientProps {
   recipe: recipeWithAllRelations;
@@ -16,8 +17,20 @@ export const RecipeClient: React.FC<RecipeClientProps> = ({
   isUserAuthor,
 }) => {
   const router = useRouter();
+  const [open, setOpen] = useState(false);
+  const [isLoading, setIsLoading] = useState(false);
+
+  const handleClickOpen = () => {
+    setOpen(true);
+  };
+
+  const handleClose = () => {
+    if (isLoading) return;
+    setOpen(false);
+  };
 
   const handleDeleteRecipe = async () => {
+    setIsLoading(true);
     const res = await fetch(`/api/recipes/${recipe.id}`, {
       method: "DELETE",
     });
@@ -26,7 +39,11 @@ export const RecipeClient: React.FC<RecipeClientProps> = ({
       return;
     }
     enqueueSnackbar("Recipe deleted successfully!", { variant: "success" });
-    setTimeout(() => router.push("/recipes"), 2000);
+    setTimeout(() => {
+      router.push("/recipes"), 2000;
+      handleClose();
+      setIsLoading(false);
+    });
   };
 
   return (
@@ -116,17 +133,20 @@ export const RecipeClient: React.FC<RecipeClientProps> = ({
       >
         {isUserAuthor && (
           <Box>
-            <Button
-              sx={{ backgroundColor: "red" }}
-              onClick={handleDeleteRecipe}
-            >
+            <Button sx={{ backgroundColor: "red" }} onClick={handleClickOpen}>
               delete
             </Button>
           </Box>
         )}
-
         <Typography textAlign={"end"}>Author: {recipe.user.name}</Typography>
       </Box>
+      <AlertDialog
+        open={open}
+        handleClose={handleClose}
+        handleDelete={handleDeleteRecipe}
+        recipeTitle={recipe.title}
+        isLoading={isLoading}
+      />
     </Box>
   );
 };

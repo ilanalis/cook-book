@@ -60,7 +60,6 @@ export const RecipeClient: React.FC<RecipeClientProps> = ({
           >
             Ingredients:{" "}
           </Typography>
-          if()
           {recipe.recipeIngredients.map((recIng) => (
             <Box
               key={recIng.id}

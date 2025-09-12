@@ -1,7 +1,7 @@
 "use client";
 
 import { SessionProvider } from "next-auth/react";
-import Header from "./components/header";
+import Header from "./ui/header";
 
 export default function ClientSessionWrapper({
   children,

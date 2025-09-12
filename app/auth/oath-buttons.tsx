@@ -14,7 +14,7 @@ export const OAthButtons: React.FC<OAuthButtonsProps> = ({ isLoading }) => {
   return (
     <Stack sx={{ mt: 2 }}>
       <Button
-        onClick={() => loginWithGithub()}
+        onClick={() => loginWithGoogle()}
         variant="outlined"
         startIcon={<GoogleIcon />}
         disabled={isLoading}
@@ -24,7 +24,7 @@ export const OAthButtons: React.FC<OAuthButtonsProps> = ({ isLoading }) => {
 
       <Button
         sx={{ mt: 1 }}
-        onClick={() => loginWithGoogle()}
+        onClick={() => loginWithGithub()}
         variant="contained"
         startIcon={<GitHubIcon />}
         disabled={isLoading}

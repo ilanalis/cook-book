@@ -1,13 +1,14 @@
 import { NewRecipeErrors, Step } from "@/lib/definitions/recipes";
+import DeleteIconComponent from "@/components/recipe/delete-button";
 import { Box, Button, TextField, Typography } from "@mui/material";
 import React from "react";
-import DeleteIconComponent from "./delete-button";
 
 interface StepInputsProps {
   steps: Step[];
   setSteps: React.Dispatch<React.SetStateAction<Step[]>>;
   error: NewRecipeErrors | null;
   validate: () => void;
+  isLoading: boolean;
 }
 
 const StepInputs: React.FC<StepInputsProps> = ({
@@ -15,11 +16,12 @@ const StepInputs: React.FC<StepInputsProps> = ({
   setSteps,
   error,
   validate,
+  isLoading,
 }) => {
   const handleStepChange = (stepId: string, value: string) => {
     setSteps((prev) =>
       prev.map((step) =>
-        step.id === stepId ? { ...step, description: value } : step
+        step.clientId === stepId ? { ...step, description: value } : step
       )
     );
   };
@@ -28,7 +30,7 @@ const StepInputs: React.FC<StepInputsProps> = ({
     setSteps((prev) => [
       ...prev,
       {
-        id: crypto.randomUUID(),
+        clientId: crypto.randomUUID(),
         stepNumber: steps.length + 1,
         description: "",
       },
@@ -41,7 +43,7 @@ const StepInputs: React.FC<StepInputsProps> = ({
       <Box display={"flex"} flexDirection={"column"} gap={1}>
         {steps.map((step, i) => {
           return (
-            <Box key={step.id}>
+            <Box key={step.id || step.clientId}>
               <Box display="flex" gap={3} alignItems="center">
                 <Typography>{step.stepNumber}.</Typography>
                 <TextField
@@ -49,7 +51,9 @@ const StepInputs: React.FC<StepInputsProps> = ({
                   name="step"
                   label="Description"
                   value={step.description}
-                  onChange={(e) => handleStepChange(step.id, e.target.value)}
+                  onChange={(e) =>
+                    handleStepChange(step.clientId, e.target.value)
+                  }
                   error={
                     !!error?.steps?.items?.[i]?.properties?.description?.errors
                       ?.length
@@ -64,10 +68,11 @@ const StepInputs: React.FC<StepInputsProps> = ({
                 <Box sx={{ width: 115 }}>
                   {i !== 0 && (
                     <DeleteIconComponent
-                      id={step.id}
+                      id={step.clientId}
                       setItems={setSteps}
                       type={"step"}
                       validate={validate}
+                      isLoading={isLoading}
                     />
                   )}
                 </Box>
@@ -77,7 +82,11 @@ const StepInputs: React.FC<StepInputsProps> = ({
         })}
       </Box>
 
-      <Button onClick={handleAddingStep} sx={{ fontSize: "1.3rem" }}>
+      <Button
+        onClick={handleAddingStep}
+        sx={{ fontSize: "1.3rem" }}
+        disabled={isLoading}
+      >
         + add step
       </Button>
     </Box>

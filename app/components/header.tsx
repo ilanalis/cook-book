@@ -1,12 +1,12 @@
 "use client";
 
 import React from "react";
-import { AppBar, Toolbar, Typography, Button, Box } from "@mui/material";
+import { AppBar, Toolbar, Typography, Box } from "@mui/material";
 import Link from "next/link";
 import { useSession } from "next-auth/react";
 
 const Header: React.FC = () => {
-  const { data: session, status } = useSession();
+  const { status } = useSession();
 
   if (status === "loading") return null;
 

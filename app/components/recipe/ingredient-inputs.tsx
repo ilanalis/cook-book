@@ -8,6 +8,7 @@ interface IngredientInputsProps {
   setIngredients: React.Dispatch<React.SetStateAction<Ingredient[]>>;
   error: NewRecipeErrors | null;
   validate: () => void;
+  isLoading: boolean;
 }
 
 const IngredientInputs: React.FC<IngredientInputsProps> = ({
@@ -15,6 +16,7 @@ const IngredientInputs: React.FC<IngredientInputsProps> = ({
   setIngredients,
   error,
   validate,
+  isLoading,
 }) => {
   const handleIngredientChange = <K extends keyof Ingredient>(
     ingredientId: string,
@@ -23,14 +25,19 @@ const IngredientInputs: React.FC<IngredientInputsProps> = ({
   ) => {
     setIngredients((prev) =>
       prev.map((ing) =>
-        ing.id === ingredientId ? { ...ing, [key]: value } : ing
+        ing.clientId === ingredientId ? { ...ing, [key]: value } : ing
       )
     );
   };
   const handleAddingIngredient = () => {
     setIngredients((prev) => [
       ...prev,
-      { id: crypto.randomUUID(), ingredientName: "", quantity: 0, unit: "" },
+      {
+        clientId: crypto.randomUUID(),
+        ingredientName: "",
+        quantity: 0,
+        unit: "",
+      },
     ]);
   };
 
@@ -40,7 +47,7 @@ const IngredientInputs: React.FC<IngredientInputsProps> = ({
       <Box display={"flex"} flexDirection={"column"} gap={1}>
         {ingredients.map((ing, i) => {
           return (
-            <Box key={ing.id}>
+            <Box key={ing.clientId}>
               <Box display={"flex"} gap={3}>
                 <TextField
                   type="text"
@@ -49,7 +56,7 @@ const IngredientInputs: React.FC<IngredientInputsProps> = ({
                   value={ing.ingredientName}
                   onChange={(e) =>
                     handleIngredientChange(
-                      ing.id,
+                      ing.clientId,
                       "ingredientName",
                       e.target.value
                     )
@@ -71,7 +78,11 @@ const IngredientInputs: React.FC<IngredientInputsProps> = ({
                   value={ing.quantity}
                   onChange={(e) => {
                     const val = e.target.value.replace(/\D/g, "");
-                    handleIngredientChange(ing.id, "quantity", Number(val));
+                    handleIngredientChange(
+                      ing.clientId,
+                      "quantity",
+                      Number(val)
+                    );
                   }}
                   inputMode="numeric"
                   variant="standard"
@@ -90,7 +101,7 @@ const IngredientInputs: React.FC<IngredientInputsProps> = ({
                   label="Unit"
                   value={ing.unit}
                   onChange={(e) =>
-                    handleIngredientChange(ing.id, "unit", e.target.value)
+                    handleIngredientChange(ing.clientId, "unit", e.target.value)
                   }
                   variant="standard"
                   error={
@@ -105,10 +116,11 @@ const IngredientInputs: React.FC<IngredientInputsProps> = ({
                 <Box sx={{ width: 350 }}>
                   {i !== 0 && (
                     <DeleteIconComponent
-                      id={ing.id}
+                      id={ing.clientId}
                       setItems={setIngredients}
                       type={"ingredient"}
                       validate={validate}
+                      isLoading={isLoading}
                     />
                   )}
                 </Box>
@@ -118,7 +130,11 @@ const IngredientInputs: React.FC<IngredientInputsProps> = ({
         })}
       </Box>
 
-      <Button onClick={handleAddingIngredient} sx={{ fontSize: "1.3rem" }}>
+      <Button
+        onClick={handleAddingIngredient}
+        sx={{ fontSize: "1.3rem" }}
+        disabled={isLoading}
+      >
         + add ingredient
       </Button>
     </Box>

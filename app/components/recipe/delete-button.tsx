@@ -1,26 +1,28 @@
 import { Button } from "@mui/material";
 import DeleteIcon from "@mui/icons-material/Delete";
-import { Ingredient, Step } from "@/lib/definitions/recipes";
 import React from "react";
 
 interface DeleteIconComponentProps<
-  T extends { id: string; stepNumber?: number }
+  T extends { clientId: string; stepNumber?: number }
 > {
   id: string;
   setItems: React.Dispatch<React.SetStateAction<T[]>>;
   type: "step" | "ingredient";
   validate: () => void;
+  isLoading: boolean;
 }
 
-const DeleteIconComponent = <T extends { id: string; stepNumber?: number }>({
+const DeleteIconComponent = <
+  T extends { clientId: string; stepNumber?: number }
+>({
   id,
   setItems,
   type,
-  validate,
+  isLoading,
 }: DeleteIconComponentProps<T>) => {
   const handleDeleteItem = () => {
     setItems((prev) => {
-      const filteredItems = prev.filter((item) => item.id !== id);
+      const filteredItems = prev.filter((item) => item.clientId !== id);
       if (type === "step") {
         const reindexedItems = filteredItems.map((item, index) => ({
           ...item,
@@ -39,6 +41,7 @@ const DeleteIconComponent = <T extends { id: string; stepNumber?: number }>({
       sx={{ minWidth: "100px", height: "50px" }}
       color="warning"
       onClick={handleDeleteItem}
+      disabled={isLoading}
     >
       Delete
     </Button>

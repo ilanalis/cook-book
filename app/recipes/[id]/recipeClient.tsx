@@ -6,6 +6,7 @@ import { Box, Button, Typography } from "@mui/material";
 import { enqueueSnackbar } from "notistack";
 import { useRouter } from "next/navigation";
 import { AlertDialog } from "./alertDialog";
+import Link from "next/link";
 
 interface RecipeClientProps {
   recipe: recipeWithAllRelations;
@@ -112,29 +113,38 @@ export const RecipeClient: React.FC<RecipeClientProps> = ({
         <Typography variant="h2" textAlign={"center"}>
           Steps
         </Typography>
-        {recipe.steps.map((step) => {
-          return (
-            <Typography
-              sx={{
-                fontSize: "1.5rem",
-              }}
-              key={step.id}
-            >
-              {step.stepNumber}. {step.description}
-            </Typography>
-          );
-        })}
+        {recipe.steps
+          .sort((a, b) => a.stepNumber - b.stepNumber)
+          .map((step) => {
+            return (
+              <Typography
+                sx={{
+                  fontSize: "1.5rem",
+                }}
+                key={step.id}
+              >
+                {step.stepNumber}. {step.description}
+              </Typography>
+            );
+          })}
       </Box>
       <Box
         display={"flex"}
-        justifyContent={"space-between"}
+        justifyContent={isUserAuthor ? "space-between" : "end"}
         alignItems={"center"}
         mt={2}
       >
         {isUserAuthor && (
-          <Box>
+          <Box sx={{ display: "flex", gap: 2 }}>
+            <Button
+              href={`/recipes/${recipe.id}/edit`}
+              component={Link}
+              variant="outlined"
+            >
+              Edit
+            </Button>
             <Button sx={{ backgroundColor: "red" }} onClick={handleClickOpen}>
-              delete
+              Delete
             </Button>
           </Box>
         )}

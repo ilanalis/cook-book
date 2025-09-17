@@ -35,8 +35,8 @@ export const AlertDialog: React.FC<AlertDialogProps> = ({
             id="alert-dialog-description"
             sx={{ color: "black", fontSize: "1.4rem" }}
           >
-            The recipe "<strong>{recipeTitle}</strong>" will be permanently
-            deleted.
+            The recipe &quot;<strong>{recipeTitle}</strong>&quot; will be
+            permanently deleted.
           </DialogContentText>
         </DialogContent>
         <DialogActions>

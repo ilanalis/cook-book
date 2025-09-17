@@ -89,10 +89,10 @@ const myTheme = createTheme({
     MuiLink: {
       styleOverrides: {
         root: {
-          color: "inherit", // наследовать цвет от родителя
-          textDecoration: "none", // убрать подчёркивание
+          color: "inherit",
+          textDecoration: "none",
           "&:hover": {
-            color: "#90caf9", // например голубой на hover
+            color: "#90caf9",
             textDecoration: "underline",
           },
         },

@@ -1,35 +1,11 @@
-"use client";
+import RecipeForm from "../../components/recipe/new-recipe-form";
 
-import NewRecipeForm from "./new-recipe-form";
-import MyContainer from "@/components/myContainer";
-import Overlay from "@/components/overlay";
-import { Box, Typography } from "@mui/material";
+const TITLE_TEXT = "Create new recipe";
+const SUBMIT_BUTTON_TEXT = "Create recipe";
 
 const NewRecipe = () => {
   return (
-    <Box
-      sx={{
-        width: "100%",
-        minHeight: "100vh",
-        backgroundImage: `url('/new-recipe-background.jpg')`,
-        backgroundSize: "cover",
-        backgroundPosition: "center",
-        backgroundRepeat: "no-repeat",
-        position: "relative",
-        boxSizing: "border-box",
-        p: "84px 15px 20px",
-        backgroundAttachment: "fixed",
-        overflowX: "hidden",
-      }}
-    >
-      <Overlay />
-      <MyContainer>
-        <Typography textAlign={"center"} variant="h1">
-          Create new recipe
-        </Typography>
-        <NewRecipeForm />
-      </MyContainer>
-    </Box>
+    <RecipeForm titleText={TITLE_TEXT} submitButtonText={SUBMIT_BUTTON_TEXT} />
   );
 };
 

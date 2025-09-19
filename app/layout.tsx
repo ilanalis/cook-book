@@ -1,6 +1,8 @@
 import { AppRouterCacheProvider } from "@mui/material-nextjs/v15-appRouter";
 import type { Metadata } from "next";
 import ClientThemeProvider from "./clientThemeProvider";
+import Header from "./components/header";
+import { SessionProvider } from "next-auth/react";
 
 export const metadata: Metadata = {
   title: "Create Next App",
@@ -16,7 +18,12 @@ export default function RootLayout({
     <html lang="en">
       <body>
         <AppRouterCacheProvider>
-          <ClientThemeProvider>{children}</ClientThemeProvider>
+          <SessionProvider>
+            <ClientThemeProvider>
+              <Header />
+              {children}
+            </ClientThemeProvider>
+          </SessionProvider>
         </AppRouterCacheProvider>
       </body>
     </html>

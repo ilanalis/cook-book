@@ -17,6 +17,7 @@ const MyContainer: React.FC<MyContainerProps> = ({ children }) => {
         WebkitBackdropFilter: "blur(10px)",
         boxShadow: "0 4px 30px rgba(0,0,0,0.1)",
         p: "30px",
+        mt: "30px",
       }}
     >
       {children}

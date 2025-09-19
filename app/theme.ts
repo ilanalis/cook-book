@@ -91,9 +91,12 @@ const myTheme = createTheme({
         root: {
           color: "inherit",
           textDecoration: "none",
+          padding: "10px",
+          borderRadius: "10px",
+          transition: "all 0.3s ease",
+
           "&:hover": {
-            color: "#90caf9",
-            textDecoration: "underline",
+            backgroundColor: "rgba(0,0,0,0.5)",
           },
         },
       },

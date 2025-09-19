@@ -2,7 +2,6 @@
 
 import { CssBaseline, ThemeProvider } from "@mui/material";
 import myTheme from "./theme";
-import ClientSessionWrapper from "./clientSessionWrapper";
 import { SnackbarProvider } from "notistack";
 
 export default function ClientThemeProvider({
@@ -14,7 +13,7 @@ export default function ClientThemeProvider({
     <ThemeProvider theme={myTheme}>
       <SnackbarProvider anchorOrigin={{ vertical: "top", horizontal: "right" }}>
         <CssBaseline />
-        <ClientSessionWrapper>{children}</ClientSessionWrapper>
+        {children}
       </SnackbarProvider>
     </ThemeProvider>
   );

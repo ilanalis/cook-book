@@ -37,7 +37,7 @@ const RecipeForm: React.FC<RecipeFormProps> = ({
   recipeId,
   recipeData,
 }) => {
-  const formattedIngredients = recipeData?.recipeIngredients.map((recIng) => {
+  const formattedIngredients = recipeData?.recipeIngredients?.map((recIng) => {
     return {
       id: recIng.id,
       clientId: crypto.randomUUID(),
@@ -47,7 +47,7 @@ const RecipeForm: React.FC<RecipeFormProps> = ({
     };
   });
   const formattedSteps = recipeData?.steps
-    .map((step) => {
+    ?.map((step) => {
       return {
         id: step.id,
         clientId: crypto.randomUUID(),

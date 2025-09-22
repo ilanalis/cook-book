@@ -1,9 +1,8 @@
-"use client";
-
 import MuiLink from "@mui/material/Link";
-import { Box, Link, Typography } from "@mui/material";
+import { Box, Button, Typography } from "@mui/material";
 import Overlay from "./components/overlay";
 import MyContainer from "./components/myContainer";
+import Link from "next/link";
 
 export default function Home() {
   return (
@@ -31,31 +30,31 @@ export default function Home() {
           sx={{
             display: "flex",
             justifyContent: "space-between",
-            alignItems: "flex-end", // выравниваем по нижнему краю
+            alignItems: "flex-end",
             p: 2,
             borderRadius: 2,
-            // height: 150, // высота блока
           }}
         >
-          <Typography sx={{ maxWidth: 500, fontSize: 30 }}>
+          <Typography sx={{ maxWidth: 600, fontSize: 30 }}>
             Welcome to CookBook — your personal guide in the world of cooking!
             Discover new recipes and enjoy cooking every day.
           </Typography>
 
-          <MuiLink
-            // variant="contained"
+          <Button
+            variant="contained"
+            component={Link}
             href="/recipes"
             sx={{
+              textAlign: "center",
               textDecoration: "none",
-              px: 2,
-              py: 1,
-              borderRadius: 1,
-              backgroundColor: "white",
-              color: "black",
+              px: 7,
+              py: 2,
+              borderRadius: 3,
+              fontSize: 20,
             }}
           >
             Explore Recipes
-          </MuiLink>
+          </Button>
         </Box>
       </MyContainer>
     </Box>

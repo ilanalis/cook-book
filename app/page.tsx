@@ -22,19 +22,43 @@ export default function Home() {
     >
       <Overlay />
       <MyContainer>
-        <Typography variant="h1" sx={{ fontSize: 70, textAlign: "center" }}>
+        <Typography
+          variant="h1"
+          sx={{ fontSize: "clamp(2rem, 5vw, 70px)", textAlign: "center" }}
+        >
           CookBook — Recipes That Inspire
         </Typography>
         <Box
           sx={{
             display: "flex",
             justifyContent: "space-between",
-            alignItems: "flex-end",
+            alignItems: {
+              sm: "flex-end",
+            },
             p: 2,
             borderRadius: 2,
+            flexDirection: {
+              xs: "column",
+              md: "row",
+            },
+            gap: {
+              xs: 2,
+              sm: 3,
+              md: 2,
+            },
           }}
         >
-          <Typography sx={{ maxWidth: 600, fontSize: 30 }}>
+          <Typography
+            sx={{
+              paddingTop: {
+                xs: 1,
+                sm: 3,
+                md: 2,
+              },
+              maxWidth: { md: 500, lg: 600 },
+              fontSize: "clamp(1rem, 4vw, 30px)",
+            }}
+          >
             Welcome to CookBook — your personal guide in the world of cooking!
             Discover new recipes and enjoy cooking every day.
           </Typography>
@@ -46,8 +70,8 @@ export default function Home() {
             sx={{
               textAlign: "center",
               textDecoration: "none",
-              px: 7,
-              py: 2,
+              px: { xs: 2, md: 7 },
+              py: { xs: 1, md: 2 },
               borderRadius: 3,
               fontSize: 20,
             }}

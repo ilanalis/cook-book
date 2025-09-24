@@ -47,8 +47,8 @@ const getUserId = async () => {
 };
 
 const canDeleteRecipe = async (recipeId: string, userId: string) => {
-  const recipe = await fetchRecipeById(recipeId);
-  const canDelete = recipe?.user.id === userId;
+  const response = await fetchRecipeById(recipeId);
+  const canDelete = response.data?.recipe?.user.id === userId;
 
   return canDelete;
 };

@@ -1,4 +1,3 @@
-import MuiLink from "@mui/material/Link";
 import { Box, Button, Typography } from "@mui/material";
 import Overlay from "./components/overlay";
 import MyContainer from "./components/myContainer";

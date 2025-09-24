@@ -13,7 +13,7 @@ interface RecipeProps {
 
 const Recipe: React.FC<RecipeProps> = async ({ params }) => {
   const { id } = await params;
-  const { success, data, message } = await fetchRecipeById(id);
+  const { success, data } = await fetchRecipeById(id);
 
   if (!success || !data?.recipe) {
     notFound();

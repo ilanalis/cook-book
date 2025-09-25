@@ -84,15 +84,11 @@ const Header: React.FC = () => {
               </MuiLink>
             ))}
             {isLoggedIn ? (
-              <MuiLink
-                href="/dashboard/profile"
-                color="inherit"
-                style={{ fontSize: 35 }}
-              >
+              <MuiLink href="/dashboard/profile" color="inherit">
                 Profile
               </MuiLink>
             ) : (
-              <MuiLink href="/auth" color="inherit" style={{ fontSize: 35 }}>
+              <MuiLink href="/auth" color="inherit">
                 Log in
               </MuiLink>
             )}

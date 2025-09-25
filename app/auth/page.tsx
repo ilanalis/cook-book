@@ -46,18 +46,17 @@ const Auth = () => {
   return (
     <Box
       sx={{
-        width: "100vw",
-        height: "100vh",
-        display: "flex",
-        justifyContent: "center",
-        alignItems: "center",
+        width: "100%",
+        minHeight: "100vh",
         backgroundImage: `url('/auth-background.jpg')`,
         backgroundSize: "cover",
         backgroundPosition: "center",
         backgroundRepeat: "no-repeat",
-        overflowY: "auto",
         position: "relative",
         boxSizing: "border-box",
+        p: "84px 15px 20px",
+        backgroundAttachment: "fixed",
+        overflowX: "hidden",
       }}
     >
       <Overlay />
@@ -65,15 +64,15 @@ const Auth = () => {
         sx={{
           mx: "auto",
           width: { xs: "90%", sm: "70%", md: "50%", lg: "500px" },
-          maxHeight: "90vh",
-          overflowY: "auto",
-          borderRadius: 3,
+          mt: { xs: 5, md: 10 },
+          p: 1,
+          borderRadius: 8,
           backgroundColor: "rgba(63, 55, 55, 0.6)",
           color: "#fff",
           backdropFilter: "blur(10px)",
           WebkitBackdropFilter: "blur(10px)",
           boxShadow: "0 4px 30px rgba(0,0,0,0.1)",
-          minHeight: "653px",
+          minHeight: { xs: "auto", md: "653px" },
         }}
       >
         <Box

@@ -16,6 +16,19 @@ const myTheme = createTheme({
       secondary: "rgba(255,255,255,0.7)",
     },
   },
+  typography: {
+    allVariants: {
+      fontSize: "clamp(1rem, 2vw, 1.5rem)",
+    },
+    h1: {
+      fontSize: "clamp(2rem, 5vw, 4rem)",
+      textAlign: "center",
+      fontWeight: 700,
+    },
+    h2: {
+      fontSize: "clamp(1.7rem, 3vw, 50px)",
+    },
+  },
   components: {
     MuiTextField: {
       styleOverrides: {

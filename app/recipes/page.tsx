@@ -38,11 +38,7 @@ const Recipes = async () => {
           justifyContent={"space-between"}
           alignItems={"center"}
         >
-          <Typography
-            textAlign={"center"}
-            variant="h1"
-            sx={{ fontSize: "clamp(2rem, 5vw, 70px)" }}
-          >
+          <Typography textAlign={"center"} variant="h1">
             Recipes
           </Typography>
           <Button

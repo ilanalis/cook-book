@@ -49,14 +49,17 @@ export const RecipeClient: React.FC<RecipeClientProps> = ({
 
   return (
     <Box>
-      <Typography variant="h1" textAlign={"center"}>
+      <Typography
+        variant="h1"
+        sx={{ fontSize: "clamp(2rem, 5vw, 70px)", textAlign: "center" }}
+      >
         {recipe.title}
       </Typography>
       <Box>
         {recipe.description && (
           <Typography
             sx={{
-              fontSize: "1.5rem",
+              marginTop: { xs: 2, md: 4 },
             }}
           >
             Description: {recipe.description}.
@@ -64,20 +67,14 @@ export const RecipeClient: React.FC<RecipeClientProps> = ({
         )}
         <Box
           sx={{
-            marginTop: 3,
+            marginTop: { xs: 1, md: 3 },
             border: "0.2px solid ",
             maxWidth: 400,
             padding: 2,
             borderRadius: 5,
           }}
         >
-          <Typography
-            sx={{
-              fontSize: "1.5rem",
-            }}
-          >
-            Ingredients:{" "}
-          </Typography>
+          <Typography>Ingredients: </Typography>
           {recipe.recipeIngredients.map((recIng) => (
             <Box
               key={recIng.id}
@@ -90,7 +87,11 @@ export const RecipeClient: React.FC<RecipeClientProps> = ({
               }}
             >
               <Typography
-                sx={{ textAlign: "left", maxWidth: 220, fontSize: "1.3rem" }}
+                sx={{
+                  textAlign: "left",
+                  maxWidth: 220,
+                  fontSize: "clamp(0.9rem, 1vw, 1.3rem)",
+                }}
               >
                 {recIng.ingredient.name}
               </Typography>
@@ -100,7 +101,7 @@ export const RecipeClient: React.FC<RecipeClientProps> = ({
                   textAlign: "right",
                   minWidth: 30,
                   maxWidth: 100,
-                  fontSize: "1.3rem",
+                  fontSize: "clamp(0.9rem, 1vw, 1.3rem)",
                 }}
               >
                 {recIng.quantity} {recIng.unit}{" "}
@@ -110,19 +111,14 @@ export const RecipeClient: React.FC<RecipeClientProps> = ({
         </Box>
       </Box>
       <Box>
-        <Typography variant="h2" textAlign={"center"}>
+        <Typography variant="h2" textAlign={"center"} sx={{ mt: 2 }}>
           Steps
         </Typography>
         {recipe.steps
           .sort((a, b) => a.stepNumber - b.stepNumber)
           .map((step) => {
             return (
-              <Typography
-                sx={{
-                  fontSize: "1.5rem",
-                }}
-                key={step.id}
-              >
+              <Typography key={step.id}>
                 {step.stepNumber}. {step.description}
               </Typography>
             );

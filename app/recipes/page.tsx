@@ -5,6 +5,7 @@ import { Box, Button, Typography } from "@mui/material";
 import Overlay from "@/components/overlay";
 import MyContainer from "@/components/myContainer";
 import Link from "next/link";
+import myTheme from "@/theme";
 
 const Recipes = async () => {
   const currentPage = 1;
@@ -32,22 +33,44 @@ const Recipes = async () => {
     >
       <Overlay />
       <MyContainer>
-        <Typography textAlign={"center"} variant="h1">
-          Recipes
-        </Typography>
-        {isLoggedIn && (
-          <Box display={"flex"} justifyContent={"end"}>
-            <Button
-              component={Link}
-              variant="contained"
-              size="large"
-              sx={{ fontSize: "20px" }}
-              href="/recipes/new"
+        <Box
+          display={"flex"}
+          justifyContent={"space-between"}
+          alignItems={"center"}
+        >
+          <Typography
+            textAlign={"center"}
+            variant="h1"
+            sx={{ fontSize: "clamp(2rem, 5vw, 70px)" }}
+          >
+            Recipes
+          </Typography>
+          <Button
+            component={Link}
+            variant="contained"
+            sx={{
+              fontSize: "clamp(1rem, 4vw, 20px)",
+              py: {
+                xs: 0,
+                sm: 1,
+                md: 1.5,
+              },
+              px: {
+                xs: 0,
+                sm: 2,
+              },
+            }}
+            href="/recipes/new"
+          >
+            <Typography sx={{ fontSize: { xs: 25 } }}>+</Typography>
+            <Box
+              component="span"
+              sx={{ display: { xs: "none", sm: "inline" }, ml: 1 }}
             >
               Create new recipe
-            </Button>
-          </Box>
-        )}
+            </Box>
+          </Button>
+        </Box>
         <RecipesList
           initialRecipes={recipes}
           recipesCount={recipesCount}

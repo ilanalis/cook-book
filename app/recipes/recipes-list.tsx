@@ -36,7 +36,7 @@ const RecipesList: React.FC<RecipesListProps> = ({
             key={recipe.id}
             sx={{
               borderBottom: "1px solid",
-              p: "20px 15px 20px",
+              p: { xs: "15px 4px 10px", md: "20px 15px 20px" },
             }}
           >
             <Typography
@@ -44,13 +44,18 @@ const RecipesList: React.FC<RecipesListProps> = ({
               href={`/recipes/${recipe.id}`}
               variant="h2"
               sx={{
-                mb: 2,
+                display: "-webkit-box",
+                WebkitBoxOrient: "vertical",
+                mb: { xs: 1, md: 2 },
                 color: "text.primary",
                 textDecoration: "none",
                 transition: "color 0.2s",
                 "&:hover": {
                   color: "#f99090ff",
                 },
+                WebkitLineClamp: 1,
+                overflow: "hidden",
+                fontSize: "clamp(1.2rem, 4vw, 50px)",
               }}
             >
               {recipe.title}
@@ -59,11 +64,12 @@ const RecipesList: React.FC<RecipesListProps> = ({
             <Typography
               sx={{
                 display: "-webkit-box",
-                WebkitLineClamp: 3,
+                WebkitLineClamp: { xs: 2, md: 3 },
                 WebkitBoxOrient: "vertical",
                 overflow: "hidden",
-                minHeight: "3.6em",
+                minHeight: { xs: "2.4em", md: "3.6em" },
                 marginBottom: "10px",
+                fontSize: "clamp(1rem, 2vw, 20px)",
               }}
             >
               {recipe.description ? `Description: ${recipe.description}` : ""}
@@ -72,11 +78,12 @@ const RecipesList: React.FC<RecipesListProps> = ({
             <Typography
               sx={{
                 display: "-webkit-box",
-                WebkitLineClamp: 3,
+                WebkitLineClamp: 2,
                 WebkitBoxOrient: "vertical",
                 overflow: "hidden",
-                minHeight: "3.6em",
+                minHeight: { xs: "2.4em", md: "3.6em" },
                 marginBottom: "10px",
+                fontSize: "clamp(1rem, 2vw, 20px)",
               }}
             >
               Ingredients:{" "}

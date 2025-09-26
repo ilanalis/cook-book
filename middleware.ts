@@ -1,13 +1,21 @@
 import { NextResponse } from "next/server";
 import type { NextRequest } from "next/server";
+import { getToken } from "next-auth/jwt";
 
-export default function middleware(request: NextRequest) {
+export default async function middleware(request: NextRequest) {
   const { pathname } = request.nextUrl;
   const protectedRoutes = ["/dashboard", "/recipes/new"];
   const isProtected = protectedRoutes.some((route) =>
     pathname.startsWith(route)
   );
-  const token = request.cookies.get("authjs.session-token")?.value;
+  const token = await getToken({
+    req: request,
+    secret: process.env.AUTH_SECRET,
+    cookieName:
+      process.env.NODE_ENV === "production"
+        ? "__Secure-authjs.session-token"
+        : "authjs.session-token",
+  });
   if (isProtected && !token) {
     return NextResponse.redirect(new URL("/auth", request.url));
   }

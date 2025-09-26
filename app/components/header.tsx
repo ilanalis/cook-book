@@ -1,10 +1,18 @@
 "use client";
 
 import React, { useState } from "react";
-import { AppBar, Box, Drawer, IconButton, Toolbar } from "@mui/material";
+import {
+  AppBar,
+  Box,
+  Button,
+  Drawer,
+  IconButton,
+  Toolbar,
+} from "@mui/material";
 import MuiLink from "@mui/material/Link";
 import { useSession } from "next-auth/react";
 import MenuIcon from "@mui/icons-material/Menu";
+import CloseIcon from "@mui/icons-material/Close";
 
 const pages = [
   { page: "Main page", link: "/" },
@@ -37,8 +45,10 @@ const Header: React.FC = () => {
             fontWeight: "bold",
             color: "white",
           },
-          pt: 4,
-          pb: 4,
+          p: {
+            xs: "20px 8px",
+            sm: "24px 16px",
+          },
           display: "flex",
         }}
       >
@@ -52,6 +62,14 @@ const Header: React.FC = () => {
             aria-label="menu"
             size="large"
             color="inherit"
+            sx={{
+              p: 0,
+              width: 50,
+              height: 50,
+              "&:hover": {
+                backgroundColor: "rgba(0,0,0,0.5)",
+              },
+            }}
           >
             <MenuIcon
               fontSize="large"
@@ -68,9 +86,12 @@ const Header: React.FC = () => {
             slotProps={{
               paper: {
                 sx: {
-                  width: 400,
+                  width: { xs: "100%", md: 400 },
                   backgroundColor: "#333333",
-                  p: 2,
+                  p: {
+                    xs: "20px 8px",
+                    sm: "24px 16px",
+                  },
                   paddingTop: 3,
                   fontSize: 30,
                   gap: 3,
@@ -78,6 +99,26 @@ const Header: React.FC = () => {
               },
             }}
           >
+            <Box>
+              <IconButton
+                onClick={() => setOpen(false)}
+                size="large"
+                sx={{
+                  width: 50,
+                  height: 50,
+                  display: "flex",
+                  justifyContent: "center",
+                  alignItems: "center",
+                  color: "white",
+                  "&:hover": {
+                    backgroundColor: "rgba(0,0,0,0.5)",
+                  },
+                }}
+              >
+                <CloseIcon fontSize="large" />
+              </IconButton>
+            </Box>
+
             {pages.map((item) => (
               <MuiLink key={item.page} href={item.link}>
                 {item.page}

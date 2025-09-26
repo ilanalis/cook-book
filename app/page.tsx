@@ -15,7 +15,7 @@ export default function Home() {
         backgroundRepeat: "no-repeat",
         position: "relative",
         boxSizing: "border-box",
-        p: "84px 15px 20px",
+        p: { xs: "40px 8px 10px", sm: "55px 16px 15px", md: "84px 16px 20px" },
         backgroundAttachment: "fixed",
         overflowX: "hidden",
       }}
